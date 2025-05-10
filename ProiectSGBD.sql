@@ -219,7 +219,7 @@ end;
 /
 //Seminar 1
 
-// Stergerea unui sponsor dupa ID
+//Stergere sponsor – Se cere stergerea unui sponsor pe baza ID-ului introdus de utilizator.
 set serveroutput on;
 declare 
 v_id_sponsor Sponsori.id_sponsor%type:=5;
@@ -230,7 +230,7 @@ dbms_output.put_line('Sponsorul cu id ul '|| v_id_sponsor||' a fost sters ');
 end;
 /
 
-// Adaugare nou mentor 
+//Inserare mentor – Se adauga un mentor nou cu date introduse de la tastatura.
 set serveroutput on;
 declare 
 v_id_mentor Mentori.id_mentor%type:=10;
@@ -243,7 +243,7 @@ dbms_output.put_line('Mentorul cu Id ul '||v_id_mentor|| ' a fost inserat cu suc
 end;
 /
 
-//Afisare detalii hackathon + formatare nume_hackathon
+//Afisare hackathon – Se afiseaza denumirea unui hackathon selectat dupa ID, cu format de tip titlu.
 set serveroutput on;
 declare 
 v_id_hackathon Hackathon.id_hackathon%type:=1;
@@ -258,8 +258,8 @@ dbms_output.put_line(' Numele 1 '||v_nume1_hackathon||' Numele2 '|| v_nume2_hack
 end;
 /
 
-//Modificare statut Hackathon 
 
+//Actualizare status – Se modifica statusul unui hackathon din "Activ" in "Incheiat", doar daca este deja "Activ".
 declare 
 v_id_hackathon_updt Hackathon.id_hackathon%type:=2;
 v_status_nou Hackathon.status%type:='Incheiat';
@@ -275,7 +275,7 @@ end;
 
 //Seminar 2
 
-//Selectie variabila de substitutie
+//Selectie variabila de substitutie – Se va introduce un ID al unui sponsor, iar aplicatia va returna numele si valoarea sponsorizarii corespunzatoare acelui sponsor, pe baza ID-ului introdus.
 
 accept id_sponsor_selectie prompt 'Introduceti Id pentru a vedea valoarea sponsorizarii: '
 declare 
@@ -290,7 +290,8 @@ dbms_output.put_line(' Sponsorul '||v_nume_sponsor||' v_valoare_sponsorizare '||
 end;
 /
 
-//Introducere activitate noua 
+//Introducere activitate noua – Se va adauga o activitate noua in cadrul unui hackathon, incluzand detalii precum titlu, tipul activitatii, data si locatia, iar confirmarea va fi oferita la succesul adaugarii.
+
 set serveroutput on;
 declare
     v_activitate Activitati%rowtype;
@@ -314,7 +315,7 @@ end;
 /
 
 
-//Stergere sesiune de mentoring
+//Stergere sesiune de mentoring – Se v sterge toate sesiunile de mentoring dintr-o luna specificata, pe baza numarului lunii introdus de utilizator.
 accept numar_luna_de_sters prompt 'Introduceti numarul lunii (1-12) pe care doriti sa o stergeti: ' 
 
 declare 
@@ -325,7 +326,7 @@ begin
 end;
 /
 
-// Schimba numele companiei pentru un membro specific al juriului 
+//Schimbarea numelui companiei pentru un membru al juriului – Se va actualiza numele companiei unui membru al juriului, pe baza ID-ului acestuia si al noii denumiri a companiei, confirmand succesul modificarii.
 set serveroutput on;
 accept id_membru_juriu prompt 'Introduceti Id-ul membrului din juriu: ' number
 accept noua_companie prompt 'Introduceti noul nume al companiei: '
@@ -349,7 +350,7 @@ end;
 
 //Seminar 3
 
-//Clasificare premii dupa valoare_sponsorizare 
+//Clasificare premii dupa valoare_sponsorizare – Se va introduce ID-ul unui premiu, iar aplicatia va afisa mesajul corespunzator pe baza valorii sponsorizarii acestuia, care va fi clasificata in 4 categorii: Basic, Standard, Premium si Elite.
 accept id_premiu_clasament prompt 'Introduceti ID-ul premiului: '
 
 declare 
@@ -378,7 +379,7 @@ begin
 end;
 /
 
-// Afisare activitati cu forloop
+//Afisare activitati cu for loop – Se va parcurge un interval de activitati (pe baza ID-urilor specifice) si se vor afisa detaliile fiecarui eveniment, inclusiv titlul, tipul, data si locatia.
 declare 
     v_id_start number := 1;
     v_id_end number := 3; 
@@ -410,7 +411,7 @@ end;
 /
 
 
-// Stergem toti organizatorii din tabelul Panou
+//Stergere toti organizatorii din Panou – Se va sterge toti utilizatorii care au rolul de 'Organizator' din tabelul Panou, iar sistemul va afisa un mesaj de succes sau informatii daca nu exista organizatori.
 set serveroutput on;
 declare
     v_id_organizator number;
@@ -444,7 +445,7 @@ end;
 /
 rollback;
 
-//Punctajele impare din evaluari
+//Punctajele impare din evaluari – Se vor afisa evaluările cu punctaje impare din tabelul Evaluari, indicand ID-ul evaluarii si punctajul respectiv.
 
 begin 
     for r_evaluare in (select id_evaluare, punctaj, comentariu from evaluari) loop 
@@ -457,7 +458,7 @@ end;
 
 //Seminar 4
 
-//Nume Prenume si Mail pt ultimii 4 participanti
+//Nume Prenume si Mail pentru ultimii 4 participanti – Se va utiliza un cursor pentru a selecta ultimii 4 participanti din tabela „Panou”, iar pentru fiecare participant se vor afisa id-ul, numele, prenumele si adresa de email.
 set serveroutput on;
 declare 
     cursor c_participanti is select id_user, nume, prenume, email from panou order by id_user desc;
@@ -483,7 +484,7 @@ end;
 /
 
 
-//Selecteaza prima activitate ordonata dupa data_de_start
+//Selecteaza prima activitate ordonata dupa data_de_start – Se va utiliza un cursor pentru a selecta prima activitate care incepe in ordinea crescatoare a datei de start si se vor afisa detaliile acesteia, inclusiv id-ul, titlul, data de start si durata in minute.
 set serveroutput on;
 declare 
     cursor c_activitati is select id_activitate, titlu, data_start, durata_minute 
@@ -513,7 +514,7 @@ begin
 end;
 /
 
-// Cursor explicit pentru a selecta evaluarile cu un punctaj mai mic decat un prag specificat
+// Cursor explicit pentru a selecta evaluarile cu un punctaj mai mic decat un prag specificat – Se va utiliza un cursor pentru a selecta evaluarile care au un punctaj mai mic decat un prag dat (60 in acest caz) si se vor afisa detaliile evaluarii doar pentru proiectele cu nume mai scurt de 10 caractere.
 set serveroutput on;
 declare 
 cursor 
@@ -537,7 +538,7 @@ dbms_output.put_line('Evaluare ID: ' || r_eval.id_evaluare || ', Proiect: ' || r
  /
  
  
- // Cursor explicit pentru a selecta sesiunile cu cele mai multe echipe
+ // Cursor explicit pentru a selecta sesiunile cu cele mai multe echipe – Se va utiliza un cursor pentru a selecta sesiunile de mentoring care au cele mai multe echipe implicate, afisand id-ul sesiunii si numarul de echipe pentru fiecare sesiune
 set serveroutput on;
 declare
   cursor c_top_sesiuni is
@@ -564,7 +565,7 @@ end;
 
 //Seminar 5
 
-// Tabela Mentori + Sesiuni_Mentoring Join 
+//Tabela Mentori + Sesiuni_Mentoring Join – Se va crea un cursor care sa afiseze pentru fiecare mentor numele, prenumele si email-ul, iar daca mentorul are sesiuni de mentoring asociate, vor fi afisate si detaliile acestora, inclusiv id-ul sesiunii, tema si data.
 set serveroutput on;
 
 declare
@@ -590,7 +591,7 @@ end;
 /
 
 
-// Facem modificare folosind cursor pe tabela update
+//Facem modificare folosind cursor pe tabela update – Se va folosi un cursor pentru a selecta sponsori care au o sponsorizare sub 20000 si le va actualiza valoarea sponsorizarii, adaugand un bonus de 5000. Detaliile modificarilor vor fi afisate pentru fiecare sponsor.
 set serveroutput on;
 declare
   cursor c_sponsori is
@@ -618,7 +619,7 @@ end;
 /
 
 
-// Functie pentru penalizare punctaj echipa in functie de conditie
+//Functie pentru penalizare punctaj echipa in functie de conditie – Se va utiliza un cursor pentru a selecta proiectele cu descriere mai scurta de 20 de caractere si va penaliza echipele asociate, scazand punctajul lor cu 10, iar detaliile penalizarii vor fi afisate.
 set serveroutput on;
 declare
   cursor c_proiecte IS
@@ -652,7 +653,7 @@ begin
 end;
 /
 
-// Functie pentru parcurgerea evaluarile  cu un punctaj sub 85 si actualizam camplu comentariu
+//Functie pentru parcurgerea evaluarilor cu un punctaj sub 85 si actualizam campul comentariu – Se va folosi un cursor pentru a selecta evaluarile cu punctaj sub 85 si se va actualiza comentariul acestora, adaugand un mesaj care indica faptul ca punctajul este sub limita de calificare.
 set serveroutput on;
 declare 
   cursor c_evaluari(p_limita number) is 
@@ -683,7 +684,7 @@ end;
 
 //Seminar 6
 
-// Functie cu exceptie custom
+//Functie cu exceptie custom – Se va crea o exceptie personalizata pentru a verifica numarul de organizatori intr-o tabela. Daca numarul de organizatori depaseste 3, va fi ridicata exceptia si va fi afisat un mesaj corespunzator.
 
 set serveroutput on;
 
@@ -710,7 +711,7 @@ exception
 end;
 /
 
-//Functie cu sqlcode si sqlerrm
+//Functie cu sqlcode si sqlerrm – Se va incerca o inserare intr-o tabela, care va genera o eroare (inserare cu o valoare prea lunga intr-o coloana). In cazul in care apare eroarea, se vor folosi sqlcode si sqlerrm pentru a captura si a afisa detaliile erorii.
 
 set serveroutput on;
 
@@ -737,7 +738,7 @@ exception
 end;
 /
 
-// Functie cu exceptie no_data_found si too_many_rows
+//Functie cu exceptie no_data_found si too_many_rows – Se va cauta un mentor cu un ID specificat. Daca nu se gaseste niciun mentor sau se gasesc mai multi mentori cu acelasi ID, vor fi tratate exceptiile no_data_found si too_many_rows, iar mesajele corespunzatoare vor fi afisate.
 set serveroutput on;
 
 declare
@@ -767,7 +768,7 @@ exception
 end;
 /
 
-//Functie pragma exception
+//Functie pragma exception – Se va folosi o exceptie definita cu pragma exception_init pentru a trata cazul in care se incearca inserarea unui mentor cu un ID duplicat. Daca exista deja un mentor cu acest ID, va fi capturata exceptia si afisat un mesaj corespunzator.
 
 set serveroutput on;
 declare 
@@ -791,7 +792,7 @@ end;
 
 //Seminar 7
 
-//Functie pentru calcul valoare totala premii
+//Functie pentru calculul valorii totale a premiilor – Se creeaza o functie care calculeaza suma tuturor valorilor din tabela Premii. Daca nu exista date, va fi afisata o eroare personalizata. In cazul unei erori generale, va fi afisat si un alt mesaj corespunzator.
 
 create or replace function calculeaza_val_totala_premii
 return number 
@@ -823,46 +824,61 @@ end;
 
 
 
-//Functie pentru gasirea echipei cu cel mai mare punctaj 
+//Functie pentru gasirea echipei cu cel mai mare punctaj – Se creeaza o functie care gaseste echipa cu punctajul minim din tabela Echipe. In cazul in care nu exista echipe, se va trata exceptia no_data_found. De asemenea, daca intervine orice alta eroare, se va afisa un mesaj corespunzator.
 
 create or replace function calculeaza_id_echipa_punctaj_minim
 return Echipe.id_echipa%type
 is 
     v_id_echipa Echipe.id_echipa%type;
+    v_punctaj_min Echipe.punctaj_echipa%type;
 begin 
-select id_echipa into v_id_echipa from Echipe 
-order by punctaj asc 
-fetch first 1 row only;
+    select min(punctaj_echipa) into v_punctaj_min from Echipe;
 
-return v_id_echipa;
+    select id_echipa into v_id_echipa 
+    from Echipe 
+    where punctaj_echipa = v_punctaj_min 
+    and rownum = 1; 
+
+    return v_id_echipa;
 
 exception 
-when no_data_found then 
-dbms_output.put_line('Nu au fost gasite echipe');
-
-when others then 
-dbms_output.put_line('Eroare la gasirea echipei cu punctaj maxim');
-
+    when no_data_found then 
+        dbms_output.put_line('Nu au fost gasite echipe');
+        return null;
+    when others then 
+        dbms_output.put_line('Eroare la gasirea echipei cu punctaj minim');
+        return null;
 end;
 /
 
 --testare 
+set serveroutput on;
+
 declare 
-v_id_echipa_min Echipe.id_echipa%type;
-v_nume_echipa Echipe.nume_echipa%type;
-v_punctaj Echipe.punctaj%type;
+    v_id_echipa_min Echipe.id_echipa%type;
+    v_nume_echipa Echipe.nume_echipa%type;
+    v_punctaj Echipe.punctaj_echipa%type;
 begin 
-v_id_echipa_min :=calculeaza_id_echipa_punctaj_minim;
-if v_id_echipa_min is not null then 
-select nume_echipa,punctaj into v_nume_echipa,v_punctaj from Echipe where id_echipa=v_id_echipa_min;
-dbms_output.put_line('Echipa cu cel mai mare punctaj este '|| v_id_echipa_min||' Nume '|| v_nume_echipa||' Punctaj '||v_punctaj);
+    v_id_echipa_min := calculeaza_id_echipa_punctaj_minim;
 
-else 
-dbms_output.put_line('Nu s a identificat nicio echipa din pacate');
-end if;
-end;/
+    if v_id_echipa_min is not null then 
+        select nume_echipa, punctaj_echipa 
+        into v_nume_echipa, v_punctaj 
+        from Echipe 
+        where id_echipa = v_id_echipa_min;
 
-// Procedura acorda bonus punctaj 
+        dbms_output.put_line('Echipa cu punctaj minim: ID=' || v_id_echipa_min || 
+                             ', Nume=' || v_nume_echipa || 
+                             ', Punctaj=' || v_punctaj);
+    else 
+        dbms_output.put_line('Nu s-a identificat nicio echipă.');
+    end if;
+end;
+/
+
+
+
+//Procedura pentru acordarea unui bonus de punctaj – Se creeaza o procedura care modifica valoarea unui premiu adaugand un punctaj suplimentar (valoare adaugata). Daca nu sunt gasite randuri pentru un premiu cu ID-ul dat, se va afisa un mesaj corespunzator. In caz contrar, se va afisa un mesaj de succes care indica valoarea punctajului adaugat.
 create or replace procedure acorda_punctaj_bonus(p_id_premiu number, pct_val_adaugata number) 
 is 
     v_randuri_modificate number;
@@ -883,10 +899,17 @@ end acorda_punctaj_bonus;
 
 --testare 
 
+declare
+  
+begin
+    acorda_punctaj_bonus(1, 500);
+end;
+/
+
 
 //Seminar 8
 
-// Creare pachet pentru gestionarea sesiunilor de mentorat
+//pachet p_sesiuni – Permite adaugarea unei sesiuni de mentorat si verificarea existentei acesteia pentru un mentor si o echipa la o anumita data.
 
 create or replace package p_sesiuni is 
 procedure adauga_sesiune(p_id_sesiune Sesiuni_Mentoring.id_sesiune%type,
@@ -940,9 +963,34 @@ create or replace package body p_sesiuni is
 end p_sesiuni;
 /
 
+--testare
+set serveroutput on;
+
+declare
+  v_exista boolean;
+begin
+  p_sesiuni.adauga_sesiune(
+    101,
+    1,
+    2,
+    'Strategii AI',
+    to_date('2025-05-10', 'YYYY-MM-DD'),
+    60
+  );
+
+  v_exista := p_sesiuni.exista_sesiune(1, 2, to_date('2025-05-10', 'YYYY-MM-DD'));
+  
+  if v_exista then
+    dbms_output.put_line('Sesiunea exista.');
+  else
+    dbms_output.put_line('Sesiunea nu exista.');
+  end if;
+end;
+/
 
 
-// Creare pachet pentru generare raport Tabela Panou + Proiecte
+//pachet p_raport_proiecte – Ofera detalii despre proiecte si membrii echipelor si permite numararea proiectelor dintr-un hackathon
+
 create or replace package p_raport_proiecte as
   procedure afiseaza_detalii;
   function numara_proiecte(p_id_hackathon number) return number;
@@ -986,8 +1034,21 @@ create or replace package body p_raport_proiecte as
 end p_raport_proiecte;
 /
 
+--testare
+set serveroutput on;
 
-// Creare pachet pentru gestionare jurati 
+declare
+  v_nr_proiecte number;
+begin
+  p_raport_proiecte.afiseaza_detalii;
+
+  v_nr_proiecte := p_raport_proiecte.numara_proiecte(1);
+  dbms_output.put_line('Număr proiecte pentru hackathon 1: ' || v_nr_proiecte);
+end;
+/
+
+//pachet p_gestionare_jurati – Permite adaugarea, stergerea si afisarea juratilor din tabela juriu
+
 create or replace package p_gestionare_jurati as 
   procedure adauga_jurat(p_id number, p_nume varchar2, p_prenume varchar2, p_companie varchar2);
   procedure sterge_jurat(p_id number);
@@ -1032,8 +1093,20 @@ create or replace package body p_gestionare_jurati as
 
 end p_gestionare_jurati;
 /
+set serveroutput on;
 
-// Creare pachet pentru afisare premii 
+begin
+
+  p_gestionare_jurati.adauga_jurat(1001, 'Popescu', 'Ion', 'TechX');
+
+  p_gestionare_jurati.afiseaza_jurati;
+
+  p_gestionare_jurati.sterge_jurat(1001);
+end;
+/
+
+
+// pachet p_premii – Afiseaza lista premiilor disponibile, impreuna cu detalii despre valoare si hackathonul asociat
 create or replace package p_premii as 
   procedure afiseaza_premii;
 end p_premii;
@@ -1056,10 +1129,19 @@ create or replace package body p_premii as
   end afiseaza_premii;
 end p_premii;
 /
+--testare 
+
+set serveroutput on;
+
+begin
+ 
+  p_premii.afiseaza_premii;
+end;
+/
 
 //Seminar 9
 
-//Restrictionare nr mem echipa
+//Trigger pentru restrictionarea numarului de membri in echipa- Se creeaza un trigger care previne inserarea unui nou membru in echipa daca echipa a atins deja numarul maxim de membri (5 membri). In cazul in care echipa este deja completa, se va ridica o eroare personalizata folosind raise_application_error.
 create or replace trigger trg_restrictie_nr_mem_echipa
 before insert on panou
 for each row
@@ -1079,19 +1161,40 @@ begin
     end if;
 end;
 /
+--testare
 
-//Previne stergerea unui hackathon activ 
+set serveroutput on;
+
+begin
+  insert into panou(id_user, id_echipa, nume, prenume, email, rol)
+  values(109, 1, 'Limit', 'Exceeded', 'limit@test.com', 'Organizator');
+end;
+/
+
+
+//Trigger pentru prevenirea stergerii unui hackathon activ- Acest trigger previne stergerea unui hackathon cu statut "Activ". Daca incercati sa stergeti un hackathon activ, trigger-ul va ridica o eroare personalizata.
 create or replace trigger trg_prevent_del_hackathon
 before delete on Hackathon
 for each row 
 begin 
 if :old.status='Activ' then 
-raise_application_error(-23412,'Nu se poate sterge un hackathon cu statut "Activ"');
+raise_application_error(-20001,'Nu se poate sterge un hackathon cu statut "Activ"');
 end if;
 end;
 /
+--testare 
 
-//Scade 5 puncte din punctajul echipei cand se actualizeaza numele proiectului
+set serveroutput on;
+
+begin
+  insert into hackathon(id_hackathon,nume_hackathon,durata_ore, status)
+  values(106, 'Test Hackathon',220, 'Activ');
+
+  delete from hackathon where id_hackathon = 999;
+end;
+/
+
+//Trigger pentru scaderea punctajului echipei la actualizarea numelui proiectului Trigger-ul va scadea 5 puncte din punctajul echipei daca numele proiectului din tabela Proiecte este actualizat. Acesta se bazeaza pe asocierea intre proiecte si echipe.
 create or replace trigger trg_rmv_points_project
 after update of nume_proiect on Proiecte
 for each row 
@@ -1107,8 +1210,32 @@ set punctaj_echipa=punctaj_echipa - 5
 where id_echipa=v_id_echipa;
 end;
 /
+--testare 
 
-//Trigger pentru demonstratie pe tabela Premii cu tabela pentru LOG
+set serveroutput on;
+
+declare
+  v_initial number;
+  v_final number;
+begin
+
+  insert into echipe(id_echipa, nume_echipa, punctaj_echipa)
+  values(50, 'Echipa Test', 100);
+  insert into proiecte(id_proiect, nume_proiect, id_echipa)
+  values(500, 'Proiect Initial', 50);
+  select punctaj_echipa into v_initial from echipe where id_echipa = 50;
+
+  update proiecte set nume_proiect = 'Proiect Schimbat' where id_proiect = 500;
+
+  select punctaj_echipa into v_final from echipe where id_echipa = 50;
+
+  dbms_output.put_line('Punctaj initial: ' || v_initial);
+  dbms_output.put_line('Punctaj dupa: ' || v_final);
+end;
+/
+
+//Trigger pentru logarea operatiunilor pe tabela Premii acest trigger va inregistra orice operatie (inserare, actualizare, stergere) realizata pe tabela Premii intr-o tabela de log, Premii_Log. Astfel, se va pastra un istoric al modificarilor efectuate in tabela Premii.
+
 create table Premii_Log(msg_operatiune varchar2(500));
 create or replace trigger trg_premii_operations_log
 after insert or update or delete on Premii
@@ -1120,6 +1247,24 @@ elsif deleting then insert into Premii_Log(msg_operatiune) values('Un rand a fos
 end if;
 end;
 /
+
+--testare
+set serveroutput on;
+
+begin
+  insert into premii(id_premiu, nume_premiu, valoare, id_hackathon)
+  values(700, 'Premiu Test', 1000, 1);
+
+  update premii set valoare = 1200 where id_premiu = 700;
+
+  delete from premii where id_premiu = 700;
+end;
+/
+
+
+select * from premii_log;
+
+
 
 
 
